@@ -45,8 +45,14 @@ namespace RoutineApi.Controllers
 
         [HttpPost]
         public async Task<ActionResult<IEnumerable<CompanyDto>>>
-             CompanyCollection([FromBody] IEnumerable<Company> companies)
+             CompanyCollection([FromBody] IEnumerable<CompanyAddDto> companies)
         {
+            if (companies.Count()==0)
+            {
+                ModelState.AddModelError("数据源", "不能为空");
+                return ValidationProblem();
+            }
+            
             var companyEntites = _mapper.Map<ICollection<Company>>(companies);
 
             foreach (var entity in companyEntites)

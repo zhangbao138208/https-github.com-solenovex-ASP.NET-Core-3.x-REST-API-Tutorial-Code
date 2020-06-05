@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RoutineApi.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class intialDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,10 @@ namespace RoutineApi.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Introduction = table.Column<string>(maxLength: 500, nullable: true)
+                    Introduction = table.Column<string>(maxLength: 500, nullable: true),
+                    Country = table.Column<string>(maxLength: 50, nullable: true),
+                    Product = table.Column<string>(maxLength: 50, nullable: true),
+                    Industry = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,28 +48,28 @@ namespace RoutineApi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "Id", "Introduction", "Name" },
-                values: new object[] { new Guid("bbdee09c-089b-4d30-bece-44df5923716c"), "Great Company", "Microsoft" });
+                columns: new[] { "Id", "Country", "Industry", "Introduction", "Name", "Product" },
+                values: new object[] { new Guid("bbdee09c-089b-4d30-bece-44df5923716c"), "USA", "Internet", "Great Company", "Microsoft", "software" });
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "Id", "Introduction", "Name" },
-                values: new object[] { new Guid("6fb600c1-9011-4fd7-9234-881379716440"), "Don't be evil", "Google" });
+                columns: new[] { "Id", "Country", "Industry", "Introduction", "Name", "Product" },
+                values: new object[] { new Guid("6fb600c1-9011-4fd7-9234-881379716440"), "USA", "Internet", "Don't be evil", "Google", "software" });
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "Id", "Introduction", "Name" },
-                values: new object[] { new Guid("5efc910b-2f45-43df-afae-620d40542853"), "Fubao Company", "Alipapa" });
+                columns: new[] { "Id", "Country", "Industry", "Introduction", "Name", "Product" },
+                values: new object[] { new Guid("5efc910b-2f45-43df-afae-620d40542853"), "China", "Internet", "Fubao Company", "Alipapa", "software" });
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "Id", "Introduction", "Name" },
-                values: new object[] { new Guid("bbdee09c-089b-4d30-bece-44df59237100"), "From Shenzhen", "Tencent" });
+                columns: new[] { "Id", "Country", "Industry", "Introduction", "Name", "Product" },
+                values: new object[] { new Guid("bbdee09c-089b-4d30-bece-44df59237100"), "China", "Internet", "From Shenzhen", "Tencent", "software" });
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "Id", "Introduction", "Name" },
-                values: new object[] { new Guid("6fb600c1-9011-4fd7-9234-881379716400"), "From Beijing", "Baidu" });
+                columns: new[] { "Id", "Country", "Industry", "Introduction", "Name", "Product" },
+                values: new object[] { new Guid("6fb600c1-9011-4fd7-9234-881379716400"), "China", "Internet", "From Beijing", "Baidu", "software" });
 
             migrationBuilder.InsertData(
                 table: "Employees",

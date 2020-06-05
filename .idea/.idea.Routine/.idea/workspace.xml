@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7342e15f-c8ba-4b75-80a2-dfbf37ad6310" name="Default Changelist" comment="" />
+    <list default="true" id="7342e15f-c8ba-4b75-80a2-dfbf37ad6310" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Routine/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Routine/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoutineApi/Controllers/CompaniesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RoutineApi/Controllers/CompaniesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoutineApi/Data/RoutineDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RoutineApi/Data/RoutineDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoutineApi/routine.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/RoutineApi/routine.db-wal" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,6 +42,9 @@
     </expand>
     <select />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/RoutineApi/Startup.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/RoutineApi/Services/CompanyRepository.cs" root0="FORCE_HIGHLIGHTING" />
@@ -59,6 +67,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1clSAJDrDUFg50W91ybk09AEaB9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -104,7 +113,7 @@
       <updated>1591018281687</updated>
       <workItem from="1591018284016" duration="1148000" />
       <workItem from="1591083094948" duration="141000" />
-      <workItem from="1591101548809" duration="1211000" />
+      <workItem from="1591101548809" duration="1810000" />
     </task>
     <servers />
   </component>

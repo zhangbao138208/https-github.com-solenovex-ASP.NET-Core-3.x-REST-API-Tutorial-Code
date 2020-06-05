@@ -58,9 +58,10 @@ namespace RoutineApi
             services.AddScoped<ICompanyRepository,CompanyRepository>();
             services.AddDbContext<RoutineDbContext>(option=>
             {
-                option.UseSqlite("Data Source=routine.db");
+                option.UseSqlite("Data Source=routine2.db");
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddTransient<IPropertyMappingService,PropertyMappingService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

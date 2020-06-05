@@ -21,8 +21,13 @@ namespace RoutineApi.Data
                 .Property(x => x.Name).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Company>()
                 .Property(x => x.Introduction).HasMaxLength(500);
-
-            modelBuilder.Entity<Employee>()
+            modelBuilder.Entity<Company>()
+                .Property(x => x.Country).HasMaxLength(50);
+            modelBuilder.Entity<Company>()
+                .Property(x => x.Industry).HasMaxLength(50);
+            modelBuilder.Entity<Company>()
+                .Property(x => x.Product).HasMaxLength(50);
+             modelBuilder.Entity<Employee>()
                 .Property(x => x.EmployeeNo).IsRequired().HasMaxLength(10);
             modelBuilder.Entity<Employee>()
                 .Property(x => x.FirstName).IsRequired().HasMaxLength(50);
@@ -41,31 +46,46 @@ namespace RoutineApi.Data
                     Id = Guid.Parse("bbdee09c-089b-4d30-bece-44df5923716c"),
                     Name = "Microsoft",
                     Introduction = "Great Company",
+                    Industry="Internet",
+                    Product="software",
+                    Country="USA"
                 },
                 new Company
                 {
                     Id = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716440"),
                     Name = "Google",
                     Introduction = "Don't be evil",
-                 },
+                    Industry = "Internet",
+                    Product = "software",
+                    Country = "USA"
+                },
                 new Company
                 {
                     Id = Guid.Parse("5efc910b-2f45-43df-afae-620d40542853"),
                     Name = "Alipapa",
                     Introduction = "Fubao Company",
+                    Industry = "Internet",
+                    Product = "software",
+                    Country = "China"
                 },
                 new Company
                 {
                     Id = Guid.Parse("bbdee09c-089b-4d30-bece-44df59237100"),
                     Name = "Tencent",
                     Introduction = "From Shenzhen",
+                    Industry = "Internet",
+                    Product = "software",
+                    Country = "China"
                 },
                 new Company
                 {
                     Id = Guid.Parse("6fb600c1-9011-4fd7-9234-881379716400"),
                     Name = "Baidu",
                     Introduction = "From Beijing",
-                 }
+                    Industry = "Internet",
+                    Product = "software",
+                    Country = "China"
+                }
                );
 
             modelBuilder.Entity<Employee>().HasData(

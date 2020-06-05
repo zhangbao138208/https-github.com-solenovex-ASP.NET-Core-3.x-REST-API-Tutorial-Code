@@ -22,6 +22,14 @@ namespace RoutineApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Country")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Industry")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
+
                     b.Property<string>("Introduction")
                         .HasColumnType("TEXT")
                         .HasMaxLength(500);
@@ -31,6 +39,10 @@ namespace RoutineApi.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
+                    b.Property<string>("Product")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
+
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
@@ -39,32 +51,47 @@ namespace RoutineApi.Migrations
                         new
                         {
                             Id = new Guid("bbdee09c-089b-4d30-bece-44df5923716c"),
+                            Country = "USA",
+                            Industry = "Internet",
                             Introduction = "Great Company",
-                            Name = "Microsoft"
+                            Name = "Microsoft",
+                            Product = "software"
                         },
                         new
                         {
                             Id = new Guid("6fb600c1-9011-4fd7-9234-881379716440"),
+                            Country = "USA",
+                            Industry = "Internet",
                             Introduction = "Don't be evil",
-                            Name = "Google"
+                            Name = "Google",
+                            Product = "software"
                         },
                         new
                         {
                             Id = new Guid("5efc910b-2f45-43df-afae-620d40542853"),
+                            Country = "China",
+                            Industry = "Internet",
                             Introduction = "Fubao Company",
-                            Name = "Alipapa"
+                            Name = "Alipapa",
+                            Product = "software"
                         },
                         new
                         {
                             Id = new Guid("bbdee09c-089b-4d30-bece-44df59237100"),
+                            Country = "China",
+                            Industry = "Internet",
                             Introduction = "From Shenzhen",
-                            Name = "Tencent"
+                            Name = "Tencent",
+                            Product = "software"
                         },
                         new
                         {
                             Id = new Guid("6fb600c1-9011-4fd7-9234-881379716400"),
+                            Country = "China",
+                            Industry = "Internet",
                             Introduction = "From Beijing",
-                            Name = "Baidu"
+                            Name = "Baidu",
+                            Product = "software"
                         });
                 });
 

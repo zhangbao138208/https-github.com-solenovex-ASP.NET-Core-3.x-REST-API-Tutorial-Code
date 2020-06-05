@@ -11,8 +11,11 @@ namespace RoutineApi.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "{0}该字段是必须的"), Display(Name = "公司简介")]
-        [StringLength(500,MinimumLength =20,ErrorMessage = "{0}该字段长度介于{2}和{1}")]
+        [StringLength(500,MinimumLength =2,ErrorMessage = "{0}该字段长度介于{2}和{1}")]
         public string Introduction { get; set; }
         public ICollection<Employee> Employees { get; set; }
+        public string Country { get; set; }
+        public string Industry { get; set; }
+        public string Product { get; set; }
     }
 }

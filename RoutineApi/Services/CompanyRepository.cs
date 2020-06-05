@@ -6,16 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using RoutineApi.Data;
 using RoutineApi.DtoParameters;
 using RoutineApi.Entites;
+using RoutineApi.Helps;
+using RoutineApi.Models;
 
 namespace RoutineApi.Services
 {
     public class CompanyRepository : ICompanyRepository
     {
         private readonly RoutineDbContext _routineDbContext;
+        private readonly IPropertyMappingService _propertyMappingService;
 
-        public CompanyRepository(RoutineDbContext routineDbContext)
+        public CompanyRepository(RoutineDbContext routineDbContext,IPropertyMappingService propertyMappingService)
         {
             _routineDbContext = routineDbContext??throw new ArgumentNullException(nameof(routineDbContext));
+            _propertyMappingService = propertyMappingService??throw new ArgumentNullException(nameof(propertyMappingService));
         }
         public void AddCompany(Company company)
         {
@@ -84,7 +88,7 @@ namespace RoutineApi.Services
             _routineDbContext.Remove(employee);
         }
 
-        public async Task<IEnumerable<Company>> GetCompaniesAsync(CompanyDtoParameters parameters)
+        public async Task<PagedList<Company>> GetCompaniesAsync(CompanyDtoParameters parameters)
         {
             if (parameters==null)
             {
@@ -105,7 +109,9 @@ namespace RoutineApi.Services
                     .Where(x => x.Name.Contains(parameters.SearchTerm)||x.Introduction.Contains(parameters.SearchTerm));
 
             }
-            return await queryExpression.ToListAsync();
+            var mappingDictionary = _propertyMappingService.GetPropertyMapping<CompanyDto,Company>();
+            queryExpression = queryExpression.ApplySort(parameters.OrderBy,mappingDictionary);
+            return await PagedList<Company>.CreateAsync(queryExpression,parameters.PageSize,parameters.PageNumber);
         }
 
         public async Task<IEnumerable<Company>> GetCompaniesAsync(Guid[] companyIds)
@@ -143,7 +149,6 @@ namespace RoutineApi.Services
 
             return await _routineDbContext.Employees
                 .Where(x=>x.CompanyId==companyId)
-                .OrderBy(x=>x.EmployeeNo)
                 .ToListAsync();
         }
 
