@@ -7,4 +7,5 @@ namespace RoutineApi.DtoParameters{    public class CompanyDtoParameters    {
             set => _pageSize = value>MaxCount?MaxCount:value; 
         }
         public string OrderBy { get; set; } = "CompanyName";
+        public string Fields { get; set; }
     }}

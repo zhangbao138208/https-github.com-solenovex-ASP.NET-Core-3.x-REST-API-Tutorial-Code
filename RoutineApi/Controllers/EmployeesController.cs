@@ -18,44 +18,44 @@ namespace RoutineApi.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly ICompanyRepository companyRepository;
-        private readonly IMapper mapper;
+        private readonly ICompanyRepository _companyRepository;
+        private readonly IMapper _mapper;
 
         public EmployeesController(ICompanyRepository companyRepository,IMapper mapper)
         {
-            this.companyRepository = companyRepository??throw new ArgumentNullException(nameof(companyRepository));
-            this.mapper = mapper??throw new ArgumentNullException(nameof(mapper));
+            _companyRepository = companyRepository??throw new ArgumentNullException(nameof(companyRepository));
+            _mapper = mapper??throw new ArgumentNullException(nameof(mapper));
         }
-        [HttpGet]
+        [HttpGet(Name =nameof(GetEmployees))]
         public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetEmployees(Guid companyId)
         {
-            if (!await companyRepository.CompanyExistAsync(companyId))
+            if (!await _companyRepository.CompanyExistAsync(companyId))
             {
                 return NotFound();
             }
-            var empoyees = await companyRepository.GetEmployeesAsync(companyId);
-            return Ok(mapper.Map<IEnumerable<EmployeeDto>>(empoyees));
+            var empoyees = await _companyRepository.GetEmployeesAsync(companyId);
+            return Ok(_mapper.Map<IEnumerable<EmployeeDto>>(empoyees));
         }
         [HttpGet("{employeeId}",Name =nameof(GetEmployee))]
         public async Task<ActionResult<EmployeeDto>> GetEmployee(Guid companyId,Guid employeeId)
         {
-            var employee = await companyRepository.GetEmployeeAsync(employeeId, companyId);
-            return Ok(mapper.Map<EmployeeDto>(employee));
+            var employee = await _companyRepository.GetEmployeeAsync(employeeId, companyId);
+            return Ok(_mapper.Map<EmployeeDto>(employee));
         }
 
-        [HttpPost]
+        [HttpPost(Name =nameof(CreateEmployee))]
         public async Task<ActionResult<EmployeeDto>> CreateEmployee(
             [FromRoute] Guid companyId,
             [FromBody] EmployeeAddDto employee)
         {
-            if (!await companyRepository.CompanyExistAsync(companyId))
+            if (!await _companyRepository.CompanyExistAsync(companyId))
             {
                 return NotFound();
             }
-            var entity = mapper.Map<Employee>(employee);
-            companyRepository.AddEmployee(companyId,entity);
-            await companyRepository.SaveAsync();
-            var returnDto = mapper.Map<EmployeeDto>(entity);
+            var entity = _mapper.Map<Employee>(employee);
+            _companyRepository.AddEmployee(companyId,entity);
+            await _companyRepository.SaveAsync();
+            var returnDto = _mapper.Map<EmployeeDto>(entity);
             return CreatedAtRoute(nameof(GetEmployee)
                 ,new { employeeId = entity.Id,companyId=entity.CompanyId },returnDto);
         }
@@ -67,26 +67,26 @@ namespace RoutineApi.Controllers
             [FromBody] EmployeeUpdateDto employeeUpdateDto
             )
         {
-            if (!await companyRepository.CompanyExistAsync(companyId))
+            if (!await _companyRepository.CompanyExistAsync(companyId))
             {
                 return NotFound();
             }
 
-            var employeeEtity = await companyRepository.GetEmployeeAsync(employeeId,companyId);
+            var employeeEtity = await _companyRepository.GetEmployeeAsync(employeeId,companyId);
             if (employeeEtity==null)
             {
-                var employee = mapper.Map<Employee>(employeeUpdateDto);
+                var employee = _mapper.Map<Employee>(employeeUpdateDto);
                 employee.Id = employeeId;
-                companyRepository.AddEmployee(companyId,employee);
-                await companyRepository.SaveAsync();
+                _companyRepository.AddEmployee(companyId,employee);
+                await _companyRepository.SaveAsync();
 
-                var dtoToReturn = mapper.Map<EmployeeDto>(employee);
+                var dtoToReturn = _mapper.Map<EmployeeDto>(employee);
                 return CreatedAtRoute(nameof(GetEmployee),new { companyId=companyId,employeeId=employeeId},dtoToReturn);
             }
 
-            mapper.Map(employeeUpdateDto,employeeEtity);
-            companyRepository.UpdateEmployee(employeeEtity);
-            await companyRepository.SaveAsync();
+            _mapper.Map(employeeUpdateDto,employeeEtity);
+            _companyRepository.UpdateEmployee(employeeEtity);
+            await _companyRepository.SaveAsync();
             return NoContent();
         }
 
@@ -133,12 +133,12 @@ namespace RoutineApi.Controllers
             JsonPatchDocument<EmployeeUpdateDto> patchDocument
             )
         {
-            if (!await companyRepository.CompanyExistAsync(companyId))
+            if (!await _companyRepository.CompanyExistAsync(companyId))
             {
                 return NotFound();
             }
 
-            var employeeEtity = await companyRepository.GetEmployeeAsync(employeeId, companyId);
+            var employeeEtity = await _companyRepository.GetEmployeeAsync(employeeId, companyId);
             if (employeeEtity == null)
             {
                 var employeeDto = new EmployeeUpdateDto();
@@ -148,24 +148,24 @@ namespace RoutineApi.Controllers
                     return ValidationProblem(ModelState);
                 }
 
-                var dtoToAdd = mapper.Map<Employee>(employeeDto);
+                var dtoToAdd = _mapper.Map<Employee>(employeeDto);
                 dtoToAdd.Id = employeeId;
-                companyRepository.AddEmployee(companyId,dtoToAdd);
-                await companyRepository.SaveAsync();
+                _companyRepository.AddEmployee(companyId,dtoToAdd);
+                await _companyRepository.SaveAsync();
 
-                var dtoToReturn = mapper.Map<EmployeeDto>(dtoToAdd);
+                var dtoToReturn = _mapper.Map<EmployeeDto>(dtoToAdd);
                 return CreatedAtRoute(nameof(GetEmployee),new { companyId,employeeId},dtoToReturn);
             }
 
-            var dtoToPatch = mapper.Map<EmployeeUpdateDto>(employeeEtity);
+            var dtoToPatch = _mapper.Map<EmployeeUpdateDto>(employeeEtity);
             patchDocument.ApplyTo(dtoToPatch,ModelState);
             if (!TryValidateModel(dtoToPatch))
             {
                 return ValidationProblem(ModelState);
             }
-            mapper.Map(dtoToPatch,employeeEtity);
-            companyRepository.UpdateEmployee(employeeEtity);
-            await companyRepository.SaveAsync();
+            _mapper.Map(dtoToPatch,employeeEtity);
+            _companyRepository.UpdateEmployee(employeeEtity);
+            await _companyRepository.SaveAsync();
             return NoContent();
         }
 

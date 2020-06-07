@@ -1,14 +1,11 @@
-﻿using RoutineApi.Attributes;
-using RoutineApi.Entites;
+﻿using RoutineApi.Entites;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RoutineApi.Models
 {
-   // [EmployeeNoDifferentFromName(ErrorMessage ="员工编号和名字不能相同")]
+    // [EmployeeNoDifferentFromName(ErrorMessage ="员工编号和名字不能相同")]
     public class EmployeeAddDto:IValidatableObject
     {
         [Required(ErrorMessage = "{0}该字段是必须的"), Display(Name = "员工编号")]

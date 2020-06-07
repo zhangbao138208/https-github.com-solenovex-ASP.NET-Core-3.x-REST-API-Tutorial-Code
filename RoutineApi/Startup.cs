@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ using Newtonsoft.Json.Serialization;
 using RoutineApi.Data;
 using RoutineApi.Services;
 using System;
+using System.Linq;
 
 namespace RoutineApi
 {
@@ -55,6 +57,19 @@ namespace RoutineApi
                         };
                     };
                 });
+
+            services.Configure<MvcOptions>(config =>
+            {
+                var newtonSoftJsonOutputFormatter =
+                config.OutputFormatters.OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
+                if (newtonSoftJsonOutputFormatter!=null)
+                {
+                    newtonSoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.company.hateoas+json");
+                    newtonSoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.company.full.hateoas+json");
+                    newtonSoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.company.full+json");
+                }
+
+            });
             services.AddScoped<ICompanyRepository,CompanyRepository>();
             services.AddDbContext<RoutineDbContext>(option=>
             {
@@ -62,6 +77,7 @@ namespace RoutineApi
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddTransient<IPropertyMappingService,PropertyMappingService>();
+            services.AddTransient<IPropertyCheckerService,PropertyCheckerService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
